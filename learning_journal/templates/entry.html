@@ -1,0 +1,8 @@
+{% macro lj_entry(entry) %}
+<div class="row">
+    <article>
+        <h6 class="date">{{ entry.date }}</h6>
+        <a href="{{ request.route_url('detail', id=entry.id) }}"><h4>{{ entry.title }}</h4></a>
+    </article>
+</div>
+{% endmacro %}
