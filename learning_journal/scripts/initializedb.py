@@ -26,8 +26,7 @@ fake = faker.Faker()
 ENTRIES = [{
     "title": fake.catch_phrase(),
     "body": fake.paragraph(),
-    "creation_date": fake.date_object(),
-    "edit_date": fake.date_object()
+    "creation_date": fake.date_object()
 } for i in range(30)]
 
 
@@ -74,9 +73,9 @@ def main(argv=sys.argv):
     options = parse_vars(argv[2:])
     setup_logging(config_uri)
     settings = get_appsettings(config_uri, options=options)
+    settings["sqlalchemy.url"] = os.environ["DATABASE_URL"]
 
     engine = get_engine(settings)
-    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
     session_factory = get_session_factory(engine)

@@ -1,12 +1,14 @@
 {% extends "layout.jinja2" %}
 {% macro lj_entry(entry) %}
 <div class="row">
+    {% if entry %}
     <article>
         <h6 class="date">{{ entry.creation_date.strftime("%b %d, %Y") }}{% if entry.edit_date %} (<em>edited: </em>{{ entry.edit_date.strftime("%b %d, %Y") }}){% endif %}</h6>
         <section>
             <a href="{{ request.route_url('detail', id=entry.id) }}"><h4>{{ entry.title }}</h4></a>
         </section>
     </article>
+    {% endif %}
 </div>
 {% endmacro %}}
 {% block title %}

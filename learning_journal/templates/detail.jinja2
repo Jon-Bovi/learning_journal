@@ -5,6 +5,7 @@ Entry: {{ entry.title }}
 {% block body %}
 <div class="entries container">
     <div class="row">
+        {% if entry %}
         <article>
             <h4>{{ entry.title }}</h4>
             <h6 class="date">{{ entry.creation_date }}</h6>
@@ -14,6 +15,7 @@ Entry: {{ entry.title }}
             <p>{{ entry.body }}</p>
             <a href="{{ request.route_url('update', id=entry.id) }}">edit</a>
         </article>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

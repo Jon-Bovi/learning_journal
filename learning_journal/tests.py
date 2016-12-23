@@ -97,20 +97,21 @@ def test_home_view_returns_100_when_db_populated(dummy_request, add_models):
     assert len(entries) == len(ENTRIES)
 
 
-def test_home_has_list(testapp, fill_db):
+# Functional Tests
+
+
+def test_home_has_list(testapp):
     response = testapp.get('/', status=200)
     assert str(response.html).count('div class="one-half column"') == 2
 
 
 def test_home_route_with_data_has_all_articles(testapp, fill_db):
+    """Test all articles are rendered."""
     response = testapp.get('/', status=200)
     assert len(response.html.find_all('article')) == 100
 
 
-@pytest.mark.parametrize("route", ROUTES)
-def test_view_css_links(route, testapp):
-    response = testapp.get(route, status=200)
+def test_view_css_links(testapp):
+    """Test css links."""
+    response = testapp.get('/', status=200)
     assert str(response.html).count('text/css') == 3
-
-
-
