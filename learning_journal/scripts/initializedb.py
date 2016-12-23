@@ -18,8 +18,20 @@ from ..models import (
 )
 from ..models import Entry
 
+import faker
 
-ENTRIES = [
+
+fake = faker.Faker()
+
+ENTRIES = [Entry(
+    title=fake.catch_phrase(),
+    body=fake.paragraph(),
+    creation_date=fake.date_object(),
+    edit_date=fake.date_object()
+) for i in range(30)]
+
+
+ENTRIES += [
     {
         "title": "TESTING",
         "body": "T0day we m0ved past vanillaish servers and jumped int0 pyth0n web framew0rks, specifically Pyramid. We discussed the t00ls Pyramid gives y0u t0 implement MVC architecture, with view c0ntr0llers and r0utes. Setting up the pyramid framew0rk is quite straightf0rward with the scaff0lds they pr0vide, I imagine it'd be h0rrend0us if th0se weren't available. F0r n0w, all 0f 0ur c0ntent is static, but we'll be building 0ur data 0ff 0f templates s00n. After setting up the pyramid app, we pushed it t0 her0ku. As 0ur daily data structure, we were intr0duced t0 d0uble ended queses, deques, which all0w p0pping and appending 0n b0th ends. They werer simple t0 implement using the d0uble-linked list under the h00d.",
