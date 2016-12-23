@@ -74,7 +74,6 @@ article {
 }
 
 .entries .row  {
-    height: 180px;
     margin-top: 10px;
 }
 
@@ -89,7 +88,7 @@ article {
 
 .date {
     color: #9b9bab;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
 }
 
 h4, h5, h6 {
@@ -100,15 +99,21 @@ h5 {
     margin-top: 14px
 }
 
-h4 {
+article h4 {
     color: #568;
     text-align: center;
-    transition: 10000ms;
+    transition: 200ms;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+article section {
+    min-height: 100px;
+    position: relative;
 }
 
 a h4:hover {
-    color: #d7c;
-    font-size: 8000%;
+    color: #005;
 }
 
 .header h3 {
@@ -128,7 +133,7 @@ header {
 }
 
 article p {
-    margin: 8px 0;
+    margin: 20px 0;
 }
 
 form {

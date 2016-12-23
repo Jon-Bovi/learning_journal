@@ -24,6 +24,7 @@ tests_require = [
     'pytest',  # includes virtualenv
     'pytest-cov',
     'tox',
+    'faker'
     ]
 
 setup(name='learning_journal',
