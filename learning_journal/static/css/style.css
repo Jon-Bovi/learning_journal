@@ -63,7 +63,8 @@ textarea {
 article {
     display: block;
     background-color: #e0eded;
-    border-radius: 5px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
     border: 5px solid #ababbb;
     min-height: 136px;
     padding: 17px;

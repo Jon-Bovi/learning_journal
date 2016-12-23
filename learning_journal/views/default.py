@@ -41,6 +41,7 @@ def update_view(request):
         e.title = request.POST['title']
         e.body = request.POST['body']
         e.edit_date = date.today()
+        request.dbsession.flush()
         return HTTPFound(location=request.route_url('home'))
     if request.method == "GET":
         return {'title': e.title, 'body': e.body}
