@@ -23,12 +23,12 @@ import faker
 
 fake = faker.Faker()
 
-ENTRIES = [Entry(
-    title=fake.catch_phrase(),
-    body=fake.paragraph(),
-    creation_date=fake.date_object(),
-    edit_date=fake.date_object()
-) for i in range(30)]
+ENTRIES = [{
+    "title": fake.catch_phrase(),
+    "body": fake.paragraph(),
+    "creation_date": fake.date_object(),
+    "edit_date": fake.date_object()
+} for i in range(30)]
 
 
 ENTRIES += [
