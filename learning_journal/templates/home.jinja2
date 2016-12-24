@@ -16,7 +16,9 @@ today I learned...
 {% endblock %}
 {% block body %}
 <div class="entries container">
+    <div class="latest">
     {{ lj_entry(latest) }}
+    </div>
     <div class="one-half column">
         {% for entry in left_entries %}
             {{ lj_entry(entry) }}
