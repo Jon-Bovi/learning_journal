@@ -1,0 +1,16 @@
+{% extends "layout.jinja2" %}
+{% block title %}
+Edit Entry: {{ title }}
+{% endblock %}
+{% block body %}
+<div class="form container">
+    <div class="row">
+        <h5>edit journal entry:</h5>
+        <form method="post">
+            <input class="title_input" type="text" name="title" value="{{ title }}">
+            <textarea name="body">{{ body }}</textarea><br>
+            <input id="submit_button" type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}
