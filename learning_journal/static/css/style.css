@@ -1,0 +1,177 @@
+/*base*/
+
+html, body {
+    background-color: #80a0b5;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    font-family: monospace;
+}
+
+li {
+    display: inline-block;
+    margin: 0;
+}
+
+a {
+    color: #708090;
+    text-decoration: none;
+}
+
+input {
+    display: block;
+    margin: 0;
+    margin-bottom: 14px;
+}
+
+.title_input {
+    width: 40vw;
+}
+
+#date {
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+textarea {
+    display: block;
+    float: left;
+    min-width: 60vw;
+    min-height: 200px;
+    margin-bottom: 48px;
+}
+
+.header {
+    padding-top: 10px;
+    width: 100vw;
+    background-color: #333;
+    margin: 0;
+    margin-right: 0;
+    max-width: 100vw;
+    height: 70px;
+}
+
+.header ul {
+    margin: 0;
+}
+
+article {
+    display: block;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 5px solid #d1d1d1;
+    min-height: 136px;
+    padding: 17px;
+}
+
+.entries {
+    margin-top: 20px;
+}
+
+.entries .row  {
+    margin-top: 10px;
+}
+
+.row .column {
+
+}
+
+.one-half.column {
+    height: 180px;
+    width: 44%;
+}
+
+.date {
+    color: #9b9bab;
+    margin-bottom: 4px;
+}
+
+h4, h5, h6 {
+    margin: 0;
+}
+
+h5 {
+    margin-top: 14px
+}
+
+article h4 {
+    color: #568;
+    text-align: center;
+    transition: 200ms;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    font-family: monospace;
+}
+
+.latest article h4 {
+    padding-top: 20px;
+}
+
+article section {
+    min-height: 100px;
+    position: relative;
+}
+
+a h4:hover {
+    color: #005;
+}
+
+.header h3 {
+    margin: 0;
+    margin-right: 40px;
+    color: #ddd;
+}
+
+#newentry {
+    float: right;
+    margin-top: 13px;
+}
+
+header {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+article p {
+    margin: 20px 0;
+}
+
+form {
+    margin-top: 20px;
+    height: 340px;
+}
+
+#submit_button {
+    background-color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-top: 100px;
+}
+
+.latest article {
+    width: 35vw;
+    min-height: 30vh;
+    background-color: white;
+    border: 6px solid #533;
+    margin: 0 auto;
+}
+
+.latest article h4 {
+    position: relative;
+}
+
+.latest article .date {
+    margin-bottom: 30px;
+}
+
+.latest {
+    margin: 20px auto;
+}
