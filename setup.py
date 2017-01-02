@@ -25,7 +25,8 @@ tests_require = [
     'pytest',  # includes virtualenv
     'pytest-cov',
     'tox',
-    'faker'
+    'faker',
+    'testing.postgresql'
     ]
 
 setup(name='learning_journal',
