@@ -1,19 +1,21 @@
 {% extends "layout.jinja2" %}
 {% block title %}
-Entry: {{ title }}
+Entry: {{ entry.title }}
 {% endblock %}
 {% block body %}
 <div class="entries container">
     <div class="row">
+        {% if entry %}
         <article>
-            <h4>{{ title }}</h4>
-            <h6 class="date">{{ creation_date }}</h6>
+            <h4>{{ entry.title }}</h4>
+            <h6 class="date">{{ entry.creation_date }}</h6>
             {% if edit_date %}
                 <h6 class="date edited">(<em>edited: </em>{{ edit_date }})</h6>
             {% endif %}
-            <p>{{ body }}</p>
-            <a href="{{ request.route_url('update', id=id) }}">edit</a>
+            <p>{{ entry.body }}</p>
+            <a href="{{ request.route_url('update', id=entry.id) }}">edit</a>
         </article>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

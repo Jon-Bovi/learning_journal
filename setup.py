@@ -17,6 +17,7 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
+    'psycopg2'
     ]
 
 tests_require = [
@@ -24,6 +25,8 @@ tests_require = [
     'pytest',  # includes virtualenv
     'pytest-cov',
     'tox',
+    'faker',
+    'testing.postgresql'
     ]
 
 setup(name='learning_journal',

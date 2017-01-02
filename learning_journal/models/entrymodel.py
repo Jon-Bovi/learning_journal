@@ -14,7 +14,7 @@ class Entry(Base):
     id = Column(Integer, primary_key=True)
     title = Column(Unicode)
     body = Column(Unicode)
-    creation_date = Column(Unicode)
+    creation_date = Column(Date)
     edit_date = Column(Date)
 
 

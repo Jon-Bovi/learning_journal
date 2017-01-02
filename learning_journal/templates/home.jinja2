@@ -1,13 +1,14 @@
 {% extends "layout.jinja2" %}
 {% macro lj_entry(entry) %}
 <div class="row">
+    {% if entry %}
     <article>
-        <h6 class="date">{{ entry.creation_date }}</h6>
-        {% if entry.edit_date %}
-            <h6 class="date edited">(<em>edited: </em>{{ entry.edit_date }})</h6>
-        {% endif %}
-        <a href="{{ request.route_url('detail', id=entry.id) }}"><h4>{{ entry.title }}</h4></a>
+        <h6 class="date">{{ entry.creation_date.strftime("%b %d, %Y") }}{% if entry.edit_date %} (<em>edited: </em>{{ entry.edit_date.strftime("%b %d, %Y") }}){% endif %}</h6>
+        <section>
+            <a href="{{ request.route_url('detail', id=entry.id) }}"><h4>{{ entry.title }}</h4></a>
+        </section>
     </article>
+    {% endif %}
 </div>
 {% endmacro %}}
 {% block title %}
@@ -15,7 +16,9 @@ today I learned...
 {% endblock %}
 {% block body %}
 <div class="entries container">
+    <div class="latest">
     {{ lj_entry(latest) }}
+    </div>
     <div class="one-half column">
         {% for entry in left_entries %}
             {{ lj_entry(entry) }}

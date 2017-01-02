@@ -1,13 +1,14 @@
 /*base*/
 
 html, body {
-    background-color: #6090a5;
+    background-color: #80a0b5;
     margin: 0;
 }
 
 ul {
     list-style: none;
     padding: 0;
+    font-family: monospace;
 }
 
 li {
@@ -62,9 +63,10 @@ textarea {
 
 article {
     display: block;
-    background-color: #e0eded;
-    border-radius: 5px;
-    border: 5px solid #ababbb;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 5px solid #d1d1d1;
     min-height: 136px;
     padding: 17px;
 }
@@ -74,7 +76,6 @@ article {
 }
 
 .entries .row  {
-    height: 180px;
     margin-top: 10px;
 }
 
@@ -89,7 +90,7 @@ article {
 
 .date {
     color: #9b9bab;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
 }
 
 h4, h5, h6 {
@@ -100,15 +101,26 @@ h5 {
     margin-top: 14px
 }
 
-h4 {
+article h4 {
     color: #568;
     text-align: center;
-    transition: 10000ms;
+    transition: 200ms;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    font-family: monospace;
+}
+
+.latest article h4 {
+    padding-top: 20px;
+}
+
+article section {
+    min-height: 100px;
+    position: relative;
 }
 
 a h4:hover {
-    color: #d7c;
-    font-size: 8000%;
+    color: #005;
 }
 
 .header h3 {
@@ -128,7 +140,7 @@ header {
 }
 
 article p {
-    margin: 8px 0;
+    margin: 20px 0;
 }
 
 form {
@@ -145,10 +157,11 @@ form {
 }
 
 .latest article {
-    height: 30vh;
-    max-height: 400px;
-    background-color: #e0e5ed;
-    border-color: #444;
+    width: 35vw;
+    min-height: 30vh;
+    background-color: white;
+    border: 6px solid #533;
+    margin: 0 auto;
 }
 
 .latest article h4 {
