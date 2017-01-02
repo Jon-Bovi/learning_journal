@@ -5,7 +5,7 @@ http://ford-learning-journal.herokuapp.com/
 Daily learning journal app with capability to view past entries, edit past
 entries, and create new entries.
 
-Build using the Pyramid framework with a postgres database.
+Build using the Pyramid framework with a postgres database and jinja2 templates.
 
 ## Testing
 
