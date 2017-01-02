@@ -37,6 +37,8 @@ def detail_view(request):
 @view_config(route_name='update', renderer='../templates/update.jinja2')
 def update_view(request):
     e = request.dbsession.query(Entry).get(int(request.matchdict['id']))
+    if not e:
+        raise HTTPNotFound(detail="You cannot edit that which does not exist")
     if request.method == "POST":
         e.title = request.POST['title']
         e.body = request.POST['body']
@@ -59,20 +61,3 @@ def create_view(request):
     if request.method == "GET":
         today = date.today()
         return {"creation_date": today}
-
-
-db_err_msg = """\
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
-
-1.  You may need to run the "initialize_db" script
-    to initialize your database tables.  Check your virtual
-    environment's "bin" directory for this script and try to run it.
-
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
-
-After you fix the problem, please restart the Pyramid application to
-try it again.
-"""
