@@ -18,7 +18,6 @@ class MyRoot(object):
 def check_credentials(username, password):
     if username and password:
         if username == os.environ['AUTH_USERNAME']:
-            import pdb; pdb.set_trace()
             return pwd_context.verify(password, os.environ['AUTH_PASSWORD'])
     return False
 
