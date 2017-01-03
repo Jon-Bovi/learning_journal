@@ -1,0 +1,1610 @@
+GLOB sdist-make: /Users/forf/codefellows/401/assignments/pyramid-lj/learning_journal/setup.py
+py27 inst-nodeps: /Users/forf/codefellows/401/assignments/pyramid-lj/learning_journal/.tox/dist/learning_journal-0.0.zip
+py27 installed: beautifulsoup4==4.5.1,coverage==4.3.1,Faker==0.7.7,ipaddress==1.0.17,Jinja2==2.8.1,learning-journal==0.0,Mako==1.0.6,MarkupSafe==0.23,PasteDeploy==1.5.2,psycopg2==2.6.2,py==1.4.32,Pygments==2.1.3,pyramid==1.7.3,pyramid-debugtoolbar==3.0.5,pyramid-jinja2==2.7,pyramid-mako==1.0.2,pyramid-tm==1.1.1,pytest==3.0.5,pytest-cov==2.4.0,python-dateutil==2.6.0,repoze.lru==0.6,six==1.10.0,SQLAlchemy==1.1.4,transaction==2.0.3,translationstring==1.3,venusian==1.0,waitress==1.0.1,WebOb==1.7.0,WebTest==2.0.24,zope.deprecation==4.2.0,zope.interface==4.3.3,zope.sqlalchemy==0.7.7
+py27 runtests: PYTHONHASHSEED='3529694221'
+py27 runtests: commands[0] | py.test learning_journal/tests.py --cov=learning_journal --cov-report term-missing
+============================= test session starts ==============================
+platform darwin -- Python 2.7.10, pytest-3.0.5, py-1.4.32, pluggy-0.4.0
+rootdir: /Users/forf/codefellows/401/assignments/pyramid-lj/learning_journal, inifile: pytest.ini
+plugins: cov-2.4.0
+collected 24 items
+
+learning_journal/tests.py .FFFFFFFFFFFEEEEEEEEEEEE
+
+---------- coverage: platform darwin, python 2.7.10-final-0 ----------
+Name                                       Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------
+learning_journal/__init__.py                  11      8    27%   8-15
+learning_journal/models/__init__.py           22      3    86%   46-49
+learning_journal/models/entrymodel.py         10      0   100%
+learning_journal/models/meta.py                5      0   100%
+learning_journal/routes.py                     8      0   100%
+learning_journal/scripts/__init__.py           0      0   100%
+learning_journal/scripts/initializedb.py      27     12    56%   63-66, 70-79
+learning_journal/security.py                  21     16    24%   9-35
+learning_journal/views/__init__.py             0      0   100%
+learning_journal/views/default.py             60     54    10%   7-95
+learning_journal/views/notfound.py             4      4     0%   1-7
+------------------------------------------------------------------------
+TOTAL                                        168     97    42%
+
+
+==================================== ERRORS ====================================
+___________________ ERROR at setup of test_view_css_links[/] ___________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+__________ ERROR at setup of test_view_css_links[/journal/new-entry] ___________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+______________ ERROR at setup of test_view_css_links[/journal/3] _______________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_________ ERROR at setup of test_view_css_links[/journal/3/edit-entry] _________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_____________________ ERROR at setup of test_home_has_list _____________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_________ ERROR at setup of test_home_route_with_data_has_all_articles _________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+______________________ ERROR at setup of test_detail_page ______________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+__ ERROR at setup of test_detail_and_update_page_404_redirect[/journal/1032] ___
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+ ERROR at setup of test_detail_and_update_page_404_redirect[/journal/1032/edit-entry] 
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_________________ ERROR at setup of test_update_page_redirect __________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+____________________ ERROR at setup of test_login_view_post ____________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+______________________ ERROR at setup of test_logout_view ______________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py27/lib/python2.7/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py27/lib/python2.7/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+=================================== FAILURES ===================================
+____________________________ test_home_view_filled _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110c8e410>
+add_models = None
+
+    def test_home_view_filled(dummy_request, add_models):
+        """Test home_view returns all entries."""
+>       from .views.default import home_view
+
+learning_journal/tests.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_______________________________ test_detail_view _______________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110d38d90>
+add_models = None
+
+    def test_detail_view(dummy_request, add_models):
+        """Test detail page for first entry."""
+>       from .views.default import detail_view
+
+learning_journal/tests.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+__________________________ test_detail_view_not_found __________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110c8ea10>
+
+    def test_detail_view_not_found(dummy_request):
+        """Test 404 not found for detail."""
+>       from .views.default import detail_view
+
+learning_journal/tests.py:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_______________________________ test_update_view _______________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110d88850>
+add_models = None
+
+    def test_update_view(dummy_request, add_models):
+        """."""
+>       from .views.default import update_view
+
+learning_journal/tests.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+__________________________ test_update_view_not_found __________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110e197d0>
+
+    def test_update_view_not_found(dummy_request):
+        """Test update view for a non-existant entry."""
+>       from .views.default import update_view
+
+learning_journal/tests.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+____________________________ test_update_view_post _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110d88390>
+add_models = None
+
+    def test_update_view_post(dummy_request, add_models):
+        """Test ability to update db."""
+>       from .views.default import update_view
+
+learning_journal/tests.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_____________________________ test_create_view_get _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110dd4150>
+
+    def test_create_view_get(dummy_request):
+        """Test create view initial get."""
+>       from .views.default import create_view
+
+learning_journal/tests.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+____________________________ test_create_view_post _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x10f8c0590>
+
+    def test_create_view_post(dummy_request):
+        """Test create view form submission adds to db."""
+>       from .views.default import create_view
+
+learning_journal/tests.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+________________________ test_check_credentials_invalid ________________________
+
+    def test_check_credentials_invalid():
+        """Test check credentials returns false for invalid username and pswrd."""
+>       from .security import check_credentials
+
+learning_journal/tests.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_________________________ test_check_credentials_valid _________________________
+
+    def test_check_credentials_valid():
+        """Test check credentials returns true for valid username and pswrd."""
+>       from .security import check_credentials
+
+learning_journal/tests.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+_____________________________ test_login_view_get ______________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x110c8e890>
+
+    def test_login_view_get(dummy_request):
+        """Test login view returns empty dict for get request."""
+>       from .views.default import login_view
+
+learning_journal/tests.py:198: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py27/lib/python2.7/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named passlib.apps
+
+learning_journal/security.py:6: ImportError
+================ 11 failed, 1 passed, 12 error in 9.62 seconds =================
+ERROR: InvocationError: '/Users/forf/codefellows/401/assignments/pyramid-lj/learning_journal/.tox/py27/bin/py.test learning_journal/tests.py --cov=learning_journal --cov-report term-missing'
+py35 inst-nodeps: /Users/forf/codefellows/401/assignments/pyramid-lj/learning_journal/.tox/dist/learning_journal-0.0.zip
+py35 installed: beautifulsoup4==4.5.1,coverage==4.3.1,Faker==0.7.7,Jinja2==2.8.1,learning-journal==0.0,Mako==1.0.6,MarkupSafe==0.23,PasteDeploy==1.5.2,psycopg2==2.6.2,py==1.4.32,Pygments==2.1.3,pyramid==1.7.3,pyramid-debugtoolbar==3.0.5,pyramid-jinja2==2.7,pyramid-mako==1.0.2,pyramid-tm==1.1.1,pytest==3.0.5,pytest-cov==2.4.0,python-dateutil==2.6.0,repoze.lru==0.6,six==1.10.0,SQLAlchemy==1.1.4,transaction==2.0.3,translationstring==1.3,venusian==1.0,waitress==1.0.1,WebOb==1.7.0,WebTest==2.0.24,zope.deprecation==4.2.0,zope.interface==4.3.3,zope.sqlalchemy==0.7.7
+py35 runtests: PYTHONHASHSEED='3529694221'
+py35 runtests: commands[0] | py.test learning_journal/tests.py --cov=learning_journal --cov-report term-missing
+============================= test session starts ==============================
+platform darwin -- Python 3.5.2, pytest-3.0.5, py-1.4.32, pluggy-0.4.0
+rootdir: /Users/forf/codefellows/401/assignments/pyramid-lj/learning_journal, inifile: pytest.ini
+plugins: cov-2.4.0
+collected 24 items
+
+learning_journal/tests.py .FFFFFFFFFFFEEEEEEEEEEEE
+
+---------- coverage: platform darwin, python 3.5.2-final-0 -----------
+Name                                       Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------
+learning_journal/__init__.py                  11      8    27%   8-15
+learning_journal/models/__init__.py           22      3    86%   46-49
+learning_journal/models/entrymodel.py         10      0   100%
+learning_journal/models/meta.py                5      0   100%
+learning_journal/routes.py                     8      0   100%
+learning_journal/scripts/__init__.py           0      0   100%
+learning_journal/scripts/initializedb.py      27     12    56%   63-66, 70-79
+learning_journal/security.py                  21     16    24%   9-35
+learning_journal/views/__init__.py             0      0   100%
+learning_journal/views/default.py             60     54    10%   7-95
+learning_journal/views/notfound.py             4      4     0%   1-7
+------------------------------------------------------------------------
+TOTAL                                        168     97    42%
+
+
+==================================== ERRORS ====================================
+___________________ ERROR at setup of test_view_css_links[/] ___________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+__________ ERROR at setup of test_view_css_links[/journal/new-entry] ___________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+______________ ERROR at setup of test_view_css_links[/journal/3] _______________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_________ ERROR at setup of test_view_css_links[/journal/3/edit-entry] _________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_____________________ ERROR at setup of test_home_has_list _____________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_________ ERROR at setup of test_home_route_with_data_has_all_articles _________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+______________________ ERROR at setup of test_detail_page ______________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+__ ERROR at setup of test_detail_and_update_page_404_redirect[/journal/1032] ___
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+ ERROR at setup of test_detail_and_update_page_404_redirect[/journal/1032/edit-entry] 
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_________________ ERROR at setup of test_update_page_redirect __________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+____________________ ERROR at setup of test_login_view_post ____________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+______________________ ERROR at setup of test_logout_view ______________________
+
+    @pytest.fixture
+    def testapp():
+        """Return mock app."""
+        from webtest import TestApp
+        from pyramid.config import Configurator
+    
+        def main(global_config, **settings):
+            """The function returns a Pyramid WSGI application."""
+            config = Configurator(settings=settings)
+            config.include('pyramid_jinja2')
+            config.include('learning_journal.models')
+            config.include('learning_journal.routes')
+            config.scan()
+            return config.make_wsgi_app()
+    
+>       app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+
+learning_journal/tests.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+learning_journal/tests.py:217: in main
+    config.scan()
+.tox/py35/lib/python3.5/site-packages/pyramid/config/__init__.py:976: in scan
+    ignore=ignore)
+.tox/py35/lib/python3.5/site-packages/venusian/__init__.py:205: in scan
+    __import__(modname)
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+=================================== FAILURES ===================================
+____________________________ test_home_view_filled _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103ceecc0>
+add_models = None
+
+    def test_home_view_filled(dummy_request, add_models):
+        """Test home_view returns all entries."""
+>       from .views.default import home_view
+
+learning_journal/tests.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_______________________________ test_detail_view _______________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103e1e1d0>
+add_models = None
+
+    def test_detail_view(dummy_request, add_models):
+        """Test detail page for first entry."""
+>       from .views.default import detail_view
+
+learning_journal/tests.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+__________________________ test_detail_view_not_found __________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103d3f860>
+
+    def test_detail_view_not_found(dummy_request):
+        """Test 404 not found for detail."""
+>       from .views.default import detail_view
+
+learning_journal/tests.py:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_______________________________ test_update_view _______________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103edf518>
+add_models = None
+
+    def test_update_view(dummy_request, add_models):
+        """."""
+>       from .views.default import update_view
+
+learning_journal/tests.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+__________________________ test_update_view_not_found __________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103eed908>
+
+    def test_update_view_not_found(dummy_request):
+        """Test update view for a non-existant entry."""
+>       from .views.default import update_view
+
+learning_journal/tests.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+____________________________ test_update_view_post _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103ebf9b0>
+add_models = None
+
+    def test_update_view_post(dummy_request, add_models):
+        """Test ability to update db."""
+>       from .views.default import update_view
+
+learning_journal/tests.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_____________________________ test_create_view_get _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103d30c18>
+
+    def test_create_view_get(dummy_request):
+        """Test create view initial get."""
+>       from .views.default import create_view
+
+learning_journal/tests.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+____________________________ test_create_view_post _____________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103d3f3c8>
+
+    def test_create_view_post(dummy_request):
+        """Test create view form submission adds to db."""
+>       from .views.default import create_view
+
+learning_journal/tests.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+________________________ test_check_credentials_invalid ________________________
+
+    def test_check_credentials_invalid():
+        """Test check credentials returns false for invalid username and pswrd."""
+>       from .security import check_credentials
+
+learning_journal/tests.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_________________________ test_check_credentials_valid _________________________
+
+    def test_check_credentials_valid():
+        """Test check credentials returns true for valid username and pswrd."""
+>       from .security import check_credentials
+
+learning_journal/tests.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+_____________________________ test_login_view_get ______________________________
+
+dummy_request = <pyramid.testing.DummyRequest object at 0x103d76dd8>
+
+    def test_login_view_get(dummy_request):
+        """Test login view returns empty dict for get request."""
+>       from .views.default import login_view
+
+learning_journal/tests.py:198: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+learning_journal/views/default.py:6: in <module>
+    from ..security import check_credentials
+.tox/py35/lib/python3.5/site-packages/_pytest/assertion/rewrite.py:216: in load_module
+    py.builtin.exec_(co, mod.__dict__)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import os
+    from pyramid.authentication import AuthTktAuthenticationPolicy
+    from pyramid.authorization import ACLAuthorizationPolicy
+    from pyramid.security import Allow, Everyone, Authenticated
+    
+>   from passlib.apps import custom_app_context as pwd_context
+E   ImportError: No module named 'passlib'
+
+learning_journal/security.py:6: ImportError
+================ 11 failed, 1 passed, 12 error in 10.20 seconds ================
+ERROR: InvocationError: '/Users/forf/codefellows/401/assignments/pyramid-lj/learning_journal/.tox/py35/bin/py.test learning_journal/tests.py --cov=learning_journal --cov-report term-missing'
+___________________________________ summary ____________________________________
+ERROR:   py27: commands failed
+ERROR:   py35: commands failed
