@@ -8,6 +8,7 @@ ipython-genutils==0.1.0
 Jinja2==2.8
 Mako==1.0.6
 MarkupSafe==0.23
+passlib==1.7.0
 PasteDeploy==1.5.2
 pexpect==4.2.1
 pg8000==1.10.6

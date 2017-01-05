@@ -1,8 +1,9 @@
-from pyramid.view import view_config
+from pyramid.view import view_config, forbidden_view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from datetime import date, datetime
 from sqlalchemy.exc import DBAPIError
-
+from pyramid.security import remember, forget
+from ..security import check_credentials
 from ..models import Entry
 
 
@@ -34,8 +35,11 @@ def detail_view(request):
     return {'entry': e, 'edit_date': edit_date}
 
 
-@view_config(route_name='update', renderer='../templates/update.jinja2')
+@view_config(route_name='update',
+             permission='admin',
+             renderer='../templates/update.jinja2')
 def update_view(request):
+    """Handle get and post requests for editing entries."""
     e = request.dbsession.query(Entry).get(int(request.matchdict['id']))
     if not e:
         raise HTTPNotFound(detail="You cannot edit that which does not exist")
@@ -49,7 +53,9 @@ def update_view(request):
         return {'title': e.title, 'body': e.body}
 
 
-@view_config(route_name='create', renderer='../templates/create.jinja2')
+@view_config(route_name='create',
+             permission='admin',
+             renderer='../templates/create.jinja2')
 def create_view(request):
     if request.method == "POST":
         title = request.POST['title']
@@ -61,3 +67,29 @@ def create_view(request):
     if request.method == "GET":
         today = date.today()
         return {"creation_date": today}
+
+
+@view_config(route_name="login", renderer='../templates/login.jinja2')
+def login_view(request):
+    if request.POST:
+        username = request.POST["username"]
+        password = request.POST["password"]
+        if check_credentials(username, password):
+            auth_head = remember(request, username)
+            return HTTPFound(
+                request.route_url('home'),
+                headers=auth_head
+            )
+
+    return {}
+
+
+@view_config(route_name='logout')
+def logout_view(request):
+    auth_head = forget(request)
+    return HTTPFound(request.route_url('home'), headers=auth_head)
+
+
+@forbidden_view_config(renderer='../templates/forbidden.jinja2')
+def forbidden_view(request):
+    return {}
