@@ -10,7 +10,6 @@ from .models.meta import Base
 from pyramid import testing
 import faker
 import datetime
-import contextlib
 import os
 
 
@@ -32,17 +31,6 @@ ROUTES = ['/',
           '/journal/new-entry',
           '/journal/3',
           '/journal/3/edit-entry']
-
-
-@contextlib.contextmanager
-def set_env(**environ):
-    old_environ = dict(os.environ)
-    os.environ.update(environ)
-    try:
-        yield
-    finally:
-        os.environ.clear()
-        os.environ.update(old_environ)
 
 
 class DummyAuthenticationPolicy(object):
@@ -71,9 +59,10 @@ class DummyAuthenticationPolicy(object):
 @pytest.fixture(scope="session")
 def configuration(request):
     """Return config for a db_session."""
-    settings = {'sqlalchemy.url': 'postgres://forf@localhost:5432/lj_testing'}
+    settings = {'sqlalchemy.url': 'postgres:///lj_testing'}
     config = testing.setUp(settings=settings)
     config.include('learning_journal.models')
+    config.include('learning_journal.routes')
 
     def teardown():
         testing.tearDown()
@@ -107,8 +96,14 @@ def dummy_request(db_session):
 @pytest.fixture
 def add_models(dummy_request):
     """."""
-    for entry in ENTRIES:
-        dummy_request.dbsession.add(entry)
+    dummy_request.dbsession.add_all(ENTRIES)
+
+
+@pytest.fixture
+def set_auth_credentials():
+    """Set password and username env variables."""
+    os.environ["AUTH_PASSWORD"] = pwd_context.hash('pass')
+    os.environ["AUTH_USERNAME"] = 'Bill'
 
 
 # Unit Tests #
@@ -210,12 +205,10 @@ def test_check_credentials_invalid():
     assert check_credentials('ffowler', 'password') is False
 
 
-def test_check_credentials_valid():
+def test_check_credentials_valid(set_auth_credentials):
     """Test check credentials returns true for valid username and pswrd."""
     from .security import check_credentials
-    pswrd = pwd_context.hash('pass')
-    with set_env(AUTH_PASSWORD=pswrd):
-        assert check_credentials('ffowler', 'pass')
+    assert check_credentials('Bill', 'pass')
 
 
 def test_login_view_get(dummy_request):
@@ -224,11 +217,19 @@ def test_login_view_get(dummy_request):
     assert login_view(dummy_request) == {}
 
 
+def test_login_view_success_redirect(dummy_request, set_auth_credentials):
+    from .views.default import login_view
+    dummy_request.method = 'POST'
+    dummy_request.POST['username'] = 'Bill'
+    dummy_request.POST['password'] = 'pass'
+
+    assert isinstance(login_view(dummy_request), HTTPFound)
+
 # Functional Tests #
 
 
-@pytest.fixture(scope="function")
-def testapp():
+@pytest.fixture(scope="session")
+def testapp(request):
     """Return mock app."""
     from webtest import TestApp
     from pyramid.config import Configurator
@@ -240,50 +241,100 @@ def testapp():
         config.include('learning_journal.models')
         config.include('learning_journal.routes')
         config.include('learning_journal.security')
-        config.set_authentication_policy(DummyAuthenticationPolicy('Bill'))
-        config.set_default_csrf_options(require_csrf=False)
         config.scan()
         return config.make_wsgi_app()
 
-    app = main({}, **{"sqlalchemy.url": "postgres://forf@localhost:5432/lj_testing"})
+    app = main({}, **{'sqlalchemy.url': 'postgres:///lj_testing'})
     testapp = TestApp(app)
 
-    session_factory = app.registry["dbsession_factory"]
-    engine = session_factory().bind
+    SessionFactory = app.registry["dbsession_factory"]
+    engine = SessionFactory().bind
+    Base.metadata.create_all(bind=engine)
 
+    def tear_down():
+        Base.metadata.drop_all(bind=engine)
+
+    request.addfinalizer(tear_down)
     return testapp
-
-
-@pytest.fixture(scope="function")
-def login(testapp):
-    """Authenticate testapp session."""
-    os.environ["AUTH_PASSWORD"] = pwd_context.hash('pass')
-    os.environ["AUTH_USERNAME"] = 'Bill'
-    post_params = {
-        'username': 'Bill',
-        'password': 'pass'
-    }
-    testapp.post('/login', post_params)
 
 
 @pytest.fixture
 def fill_db(testapp):
+    """."""
     session_factory = testapp.app.registry["dbsession_factory"]
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
         dbsession.add_all(ENTRIES)
 
-
-@pytest.mark.parametrize("route", ROUTES)
-def test_view_css_links(route, testapp, fill_db, login):
-    """Test css links."""
-    response = testapp.get(route, status=200)
-    assert str(response.html).count('text/css') == 3
+    return dbsession
 
 
 def test_home_has_list(testapp):
+    """."""
     response = testapp.get('/', status=200)
     assert str(response.html).count('div class="one-half column"') == 2
+
+
+def test_get_login_shows_input_fields(testapp):
+    """."""
+    response = testapp.get("/login")
+    html = response.html
+    username = html.find("input", {"name": "username"})
+    password = html.find("input", {"name": "password"})
+    assert username and password
+
+
+def test_user_log_in_and_auth(set_auth_credentials, testapp):
+    """Test login authenicates user."""
+    testapp.post("/login", params={
+        'username': 'Bill',
+        'password': 'pass'
+    })
+    assert "auth_tkt" in testapp.cookies
+
+
+def test_authed_user_can_create_new_entry(testapp):
+    """Foo."""
+    response = testapp.get("/journal/new-entry")
+    csrf_token = response.html.find(
+        "input",
+        {"name": "csrf_token"}).attrs["value"]
+
+    testapp.post("/journal/new-entry", params={
+        "csrf_token": csrf_token,
+        "title": "THIS IS NOT A TEST",
+        "creation_date": "2000-10-10",
+        "body": "can't touch this"
+    })
+
+    response = testapp.get("/")
+    assert "THIS IS NOT A TEST" in response.text
+
+
+def test_authed_user_can_edit_entry(testapp):
+    """Test logged in user can edit entry."""
+    response = testapp.get("/journal/1/edit-entry")
+    csrf_token = response.html.find(
+        "input",
+        {"name": "csrf_token"}).attrs["value"]
+
+    testapp.post("/journal/new-entry", params={
+        "csrf_token": csrf_token,
+        "title": "THIS IS A TEST",
+        "creation_date": "2010-10-10",
+        "body": "don't touch this"
+    })
+
+    response = testapp.get("/")
+    assert "THIS IS A TEST" in response.text
+
+
+@pytest.mark.parametrize('route', ['/journal/1032', '/journal/1032/edit-entry'])
+def test_detail_and_update_page_404_redirect(route, testapp):
+    """Test detail page redirects to 404 page if entry doesn't exist."""
+    res = testapp.get(route, status=404).html.find_all('p')
+    assert res[0].text == '404'
+    assert res[1].text == u'¶∆‰Œ πø† ∫◊µπ¿'
 
 
 def test_home_route_with_data_has_all_articles(testapp, fill_db):
@@ -299,51 +350,19 @@ def test_detail_page(testapp, fill_db):
     assert res.find('p').text == 'last airbender'
 
 
-@pytest.mark.parametrize('route', ['/journal/1032', '/journal/1032/edit-entry'])
-def test_detail_and_update_page_404_redirect(route, testapp, login):
-    """Test detail page redirects to 404 page if entry doesn't exist."""
-    res = testapp.get(route, status=404).html.find_all('p')
-    assert res[0].text == '404'
-    assert res[1].text == u'¶∆‰Œ πø† ∫◊µπ¿'
+def test_logout_removes_authentication(testapp):
+    """Foo."""
+    testapp.get("/logout")
+    assert "auth_tkt" not in testapp.cookies
 
 
-def test_update_page_redirect(testapp, login):
-    """Test update page redirects to detail view."""
-    post_params = {
-        'title': 'geronimo',
-        'body': 'downward dog'
-    }
-    res = testapp.post('/journal/1/edit-entry', post_params)
-    full = res.follow()
-    assert full.html.find('h4').text == 'geronimo'
-    assert full.html.find('p').text == 'downward dog'
+def test_login_button_now_present_on_homepage(testapp):
+    """FOO."""
+    response = testapp.get("/")
+    assert "login" in response.text
 
 
-def test_create_page_redirect(testapp, login):
-    """Test create page redirects to home."""
-    post_params = {
-        'title': 'baby bond',
-        'body': 'gold powder',
-        'creation_date': '2000-10-21'
-    }
-    res = testapp.post('/journal/new-entry', post_params)
-    full = res.follow()
-    assert full.html.find('article').find('h4').text == 'baby bond'
-
-
-def test_login_view_post(testapp, login):
-    """Test login view re."""
-    pswrd = pwd_context.hash('pass')
-    with set_env(AUTH_PASSWORD=pswrd):
-        post_params = {
-            'password': 'pass',
-            'username': 'Bill'
-        }
-        res = testapp.post('/login', post_params)
-        assert res.headers['Location'] == 'http://localhost/'
-
-
-def test_logout_view(testapp):
-    """."""
-    res = testapp.get('/logout').follow()
-    assert res
+def test_edit_view_is_forbidden_again(testapp, fill_db):
+    """Foo."""
+    response = testapp.get("/journal/5/edit-entry", status=403)
+    assert response.status_code == 403
