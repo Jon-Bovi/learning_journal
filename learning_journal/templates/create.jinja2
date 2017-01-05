@@ -7,6 +7,7 @@ New Entry
     <div class="row">
         <h5>create new journal entry:</h5>
         <form method="post">
+            <input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}">
             <input class="title_input" type="text" name="title" placeholder="Title" required>
             <input id="date" type="date" name="creation_date" value="{{ creation_date }}">
             <textarea name="body" placeholder="What did I learn today?" required=""></textarea><br>

@@ -1,7 +1,8 @@
+"""View handlers."""
 from pyramid.view import view_config, forbidden_view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from datetime import date, datetime
-from sqlalchemy.exc import DBAPIError
+# from sqlalchemy.exc import DBAPIError
 from pyramid.security import remember, forget
 from ..security import check_credentials
 from ..models import Entry
@@ -57,6 +58,7 @@ def update_view(request):
              permission='admin',
              renderer='../templates/create.jinja2')
 def create_view(request):
+    """Return new entry form and/or add new entry to db with form data."""
     if request.method == "POST":
         title = request.POST['title']
         body = request.POST['body']
@@ -69,9 +71,12 @@ def create_view(request):
         return {"creation_date": today}
 
 
-@view_config(route_name="login", renderer='../templates/login.jinja2')
+@view_config(route_name="login",
+             renderer='../templates/login.jinja2',
+             require_csrf=False)
 def login_view(request):
-    if request.POST:
+    """Return login form and/or attempt login with form data."""
+    if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
         if check_credentials(username, password):
@@ -86,10 +91,12 @@ def login_view(request):
 
 @view_config(route_name='logout')
 def logout_view(request):
+    """Forget authentication of user and redirect to home."""
     auth_head = forget(request)
     return HTTPFound(request.route_url('home'), headers=auth_head)
 
 
 @forbidden_view_config(renderer='../templates/forbidden.jinja2')
 def forbidden_view(request):
+    """Return 403 forbidden page."""
     return {}

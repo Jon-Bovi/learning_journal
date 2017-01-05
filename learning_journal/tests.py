@@ -4,6 +4,8 @@ import transaction
 from .models import Entry, get_tm_session
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from zope.interface.interfaces import ComponentLookupError
+from passlib.apps import custom_app_context as pwd_context
+from pyramid.security import Allow, Everyone, Authenticated
 from .models.meta import Base
 from pyramid import testing
 import faker
@@ -30,6 +32,40 @@ ROUTES = ['/',
           '/journal/new-entry',
           '/journal/3',
           '/journal/3/edit-entry']
+
+
+@contextlib.contextmanager
+def set_env(**environ):
+    old_environ = dict(os.environ)
+    os.environ.update(environ)
+    try:
+        yield
+    finally:
+        os.environ.clear()
+        os.environ.update(old_environ)
+
+
+class DummyAuthenticationPolicy(object):
+    def __init__(self, userid):
+        self.userid = userid
+
+    def authenticated_userid(self, request):
+        return self.userid
+
+    def unauthenticated_userid(self, request):
+        return self.userid
+
+    def effective_principals(self, request):
+        principals = [Everyone]
+        if self.userid:
+            principals += [Authenticated]
+        return principals
+
+    def remember(self, request, userid, **kw):
+        return []
+
+    def forget(self, request):
+        return []
 
 
 @pytest.fixture(scope="session")
@@ -71,7 +107,8 @@ def dummy_request(db_session):
 @pytest.fixture
 def add_models(dummy_request):
     """."""
-    dummy_request.dbsession.add_all(ENTRIES)
+    for entry in ENTRIES:
+        dummy_request.dbsession.add(entry)
 
 
 # Unit Tests #
@@ -173,21 +210,9 @@ def test_check_credentials_invalid():
     assert check_credentials('ffowler', 'password') is False
 
 
-@contextlib.contextmanager
-def set_env(**environ):
-    old_environ = dict(os.environ)
-    os.environ.update(environ)
-    try:
-        yield
-    finally:
-        os.environ.clear()
-        os.environ.update(old_environ)
-
-
 def test_check_credentials_valid():
     """Test check credentials returns true for valid username and pswrd."""
     from .security import check_credentials
-    from passlib.apps import custom_app_context as pwd_context
     pswrd = pwd_context.hash('pass')
     with set_env(AUTH_PASSWORD=pswrd):
         assert check_credentials('ffowler', 'pass')
@@ -202,7 +227,7 @@ def test_login_view_get(dummy_request):
 # Functional Tests #
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def testapp():
     """Return mock app."""
     from webtest import TestApp
@@ -214,6 +239,9 @@ def testapp():
         config.include('pyramid_jinja2')
         config.include('learning_journal.models')
         config.include('learning_journal.routes')
+        config.include('learning_journal.security')
+        config.set_authentication_policy(DummyAuthenticationPolicy('Bill'))
+        config.set_default_csrf_options(require_csrf=False)
         config.scan()
         return config.make_wsgi_app()
 
@@ -222,9 +250,20 @@ def testapp():
 
     session_factory = app.registry["dbsession_factory"]
     engine = session_factory().bind
-    Base.metadata.create_all(bind=engine)
 
     return testapp
+
+
+@pytest.fixture(scope="function")
+def login(testapp):
+    """Authenticate testapp session."""
+    os.environ["AUTH_PASSWORD"] = pwd_context.hash('pass')
+    os.environ["AUTH_USERNAME"] = 'Bill'
+    post_params = {
+        'username': 'Bill',
+        'password': 'pass'
+    }
+    testapp.post('/login', post_params)
 
 
 @pytest.fixture
@@ -236,7 +275,7 @@ def fill_db(testapp):
 
 
 @pytest.mark.parametrize("route", ROUTES)
-def test_view_css_links(route, testapp, fill_db):
+def test_view_css_links(route, testapp, fill_db, login):
     """Test css links."""
     response = testapp.get(route, status=200)
     assert str(response.html).count('text/css') == 3
@@ -261,44 +300,44 @@ def test_detail_page(testapp, fill_db):
 
 
 @pytest.mark.parametrize('route', ['/journal/1032', '/journal/1032/edit-entry'])
-def test_detail_and_update_page_404_redirect(route, testapp):
+def test_detail_and_update_page_404_redirect(route, testapp, login):
     """Test detail page redirects to 404 page if entry doesn't exist."""
     res = testapp.get(route, status=404).html.find_all('p')
     assert res[0].text == '404'
     assert res[1].text == u'¶∆‰Œ πø† ∫◊µπ¿'
 
 
-def test_update_page_redirect(testapp, fill_db):
+def test_update_page_redirect(testapp, login):
     """Test update page redirects to detail view."""
     post_params = {
         'title': 'geronimo',
         'body': 'downward dog'
     }
-    res = testapp.post('/journal/1/edit-entry', post_params).follow()
-    assert res.html.find('h4').text == 'geronimo'
-    assert res.html.find('p').text == 'downward dog'
+    res = testapp.post('/journal/1/edit-entry', post_params)
+    full = res.follow()
+    assert full.html.find('h4').text == 'geronimo'
+    assert full.html.find('p').text == 'downward dog'
 
 
-# def test_create_page_redirect(testapp, fill_db):
-#     """Test create page redirects to home."""
-#     post_params = {
-#         'title': 'baby bond',
-#         'body': 'gold powder',
-#         'creation_date': '2000-10-21'
-#     }
-#     res = testapp.post('/journal/new-entry', post_params)
-#     assert res.html.find('article').find('h4').text == 'baby bond'
+def test_create_page_redirect(testapp, login):
+    """Test create page redirects to home."""
+    post_params = {
+        'title': 'baby bond',
+        'body': 'gold powder',
+        'creation_date': '2000-10-21'
+    }
+    res = testapp.post('/journal/new-entry', post_params)
+    full = res.follow()
+    assert full.html.find('article').find('h4').text == 'baby bond'
 
 
-def test_login_view_post(testapp):
-    """Test login view re"""
-    from .views.default import login_view
-    from passlib.apps import custom_app_context as pwd_context
+def test_login_view_post(testapp, login):
+    """Test login view re."""
     pswrd = pwd_context.hash('pass')
     with set_env(AUTH_PASSWORD=pswrd):
         post_params = {
             'password': 'pass',
-            'username': 'ffowler'
+            'username': 'Bill'
         }
         res = testapp.post('/login', post_params)
         assert res.headers['Location'] == 'http://localhost/'
@@ -306,6 +345,5 @@ def test_login_view_post(testapp):
 
 def test_logout_view(testapp):
     """."""
-    from .views.default import logout_view
-    res = testapp.get('/logout')
-    assert res.headers['Location'] == 'http://localhost/'
+    res = testapp.get('/logout').follow()
+    assert res
