@@ -15,6 +15,20 @@
 today I learned...
 {% endblock %}
 {% block body %}
+{% if request.authenticated_userid %}
+    <div class="form container">
+        <div class="row">
+            <h5>create new journal entry:</h5>
+            <form method="post" id="new_entry_form">
+                <input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}">
+                <input class="title_input" type="text" name="title" placeholder="Title" required>
+                <input id="date" type="date" name="creation_date" value="{{ creation_date }}">
+                <textarea name="body" placeholder="What did I learn today?" required=""></textarea><br>
+                <input id="submit_button" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+{% endif %}
 <div class="entries container">
     <div class="latest">
     {{ lj_entry(latest) }}
@@ -30,4 +44,6 @@ today I learned...
         {% endfor %}
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ request.static_path('learning_journal:static/app.js') }}"></script>
 {% endblock %}

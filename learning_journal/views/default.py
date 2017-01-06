@@ -11,6 +11,13 @@ from ..models import Entry
 @view_config(route_name='home', renderer='../templates/home.jinja2')
 def home_view(request):
     """Grab homepage data from db and send it to jinja."""
+    if request.method == "POST":
+        title = request.POST['title']
+        body = request.POST['body']
+        creation_date = datetime.strptime(request.POST['creation_date'], "%Y-%m-%d")
+        entry = Entry(title=title, body=body, creation_date=creation_date)
+        request.dbsession.add(entry)
+        return HTTPFound(location=request.route_url('home'))
     entries = request.dbsession.query(Entry).order_by(Entry.id).all()[::-1]
     latest = entries[0] if entries else ""
     left_entries, right_entries = [], []
@@ -21,7 +28,8 @@ def home_view(request):
             right_entries.append(entries[i])
     return {'latest': latest,
             'left_entries': left_entries,
-            'right_entries': right_entries}
+            'right_entries': right_entries,
+            "creation_date": date.today()}
 
 
 @view_config(route_name='detail', renderer='../templates/detail.jinja2')
