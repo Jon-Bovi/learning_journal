@@ -2,6 +2,7 @@
 
 html, body {
     background-color: #80a0b5;
+    /*background-color: #c3d49b;*/
     margin: 0;
 }
 
@@ -42,7 +43,7 @@ input {
 textarea {
     display: block;
     float: left;
-    min-width: 60vw;
+    width: 100%;
     min-height: 200px;
     margin-bottom: 48px;
 }
@@ -109,6 +110,7 @@ article h4 {
 
 .latest article h4 {
     padding-top: 20px;
+    font-size: 3.3em;
 }
 
 article section {
@@ -157,10 +159,10 @@ form {
 }
 
 .latest article {
-    width: 35vw;
+    width: 60vw;
     min-height: 30vh;
     background-color: white;
-    border: 6px solid #533;
+    border: 6px solid #556;
     margin: 0 auto;
 }
 

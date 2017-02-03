@@ -5,7 +5,7 @@ New Entry
 {% block body %}
 <div class="form container">
     <div class="row">
-        <h5>create new journal entry:</h5>
+        <h5>new journal entry:</h5>
         <form method="post">
             <input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}">
             <input class="title_input" type="text" name="title" placeholder="Title" required>
